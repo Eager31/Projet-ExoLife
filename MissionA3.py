@@ -19,8 +19,8 @@ for i in range(0, isize[0]):
             gray[i][j] = 255
 cv2.imshow('Surface de Europa',gray)
 '''
-##VERSION 2 - Image segmentation
-
+##VERSION 2 - Treshold
+'''
 # On définit la plage de tresh
 thresh = 180
 maxValue = 255
@@ -28,5 +28,11 @@ maxValue = 255
 ret, thresh = cv2.threshold(gray,thresh,maxValue,cv2.THRESH_BINARY_INV)##On inverse les couleurs avec Binary_Inv
 
 cv2.imshow('Surface de Europa',thresh)
+'''
+##VERSION 3 - Adaptative Treshold - DO NOT WORKING
+'''
+th = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 115, 1)
 
+cv2.imshow('Surface de Europa',th)
+'''
 cv2.waitKey(0)
