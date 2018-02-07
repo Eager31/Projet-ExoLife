@@ -14,7 +14,6 @@ imgF = cv2.addWeighted(img, 0.5, img2, 0.5, 0)
 '''
 
 ###Version 2 - Algo
-
 isize = img.shape  #Propriétés de l'images
 isize2 = img2.shape  #Propriétés de l'images
 imgF = img
