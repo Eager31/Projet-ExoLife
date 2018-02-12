@@ -32,7 +32,12 @@ img = cv2.imread('Images/kamino.jpeg',0)
 f = np.fft.fft2(img) ##Nous donne la fréquence de transformation (array compliqué) appellé "GrayScale"
 fshift = np.fft.fftshift(f) #Apporter vers le centre, en faisant N/2 sur chaque direction
 spectre = 20*np.log(np.abs(fshift))
-
+#Si on rogne des pixels
+'''
+rows, cols = img.shape
+crow,ccol = int(rows/2) , int(cols/2)
+fshift[crow-10:crow+10, ccol-10:ccol+10] = 0
+'''
 #On fais la transformation inverse -> IFFT (IDFT)
 f_ishift = np.fft.ifftshift(fshift) #Ramène vers en haut à gauche (et non au centre) comme à l'originelle
 img_back = np.fft.ifft2(f_ishift) #On inverse le FTT
