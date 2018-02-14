@@ -1,23 +1,29 @@
-import numpy as np
 import cv2
 
-cv2.destroyAllWindows()
-
 #Récupération de l'image
-img = cv2.imread('Images/Encelade_surface.pbm',0)
-
-isize = img.shape  #Propriétés de l'images
+img = cv2.imread('Images/Encelade_surface.pbm')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+isize = gray.shape  #Propriétés de l'images
 maxi = 0 #Plus c'est haut plus c'est blanc
 coord = [] #Coordonnées
+liste = [] #Liste qui va contenir toutes les coordonnées
 for i in range(0, isize[0]):
     for j in range(0, isize[1]):
-        if img[i][j] > maxi:
-            maxi = img[i][j]
-            coord = [i, j]
+        if gray[i][j] >= maxi:
+            if gray[i][j] > maxi:
+                liste.clear()
+                maxi = gray[i][j]
+                coord = [i, j]
+                liste.append(coord)
+            if gray[i][j] == maxi:
+                liste.append(coord)
+
 
 #On entoure donc la valeur la plus blanche de l'image
-img = cv2.circle(img, (coord[0], coord[1]), 10, (255,0,0), 1)
-print(coord)
+for i in liste :
+    img = cv2.circle(img, (i[0],i[1]),10, (0,0,255), 1)
+
+print("Coordonnées les plus blanches :",coord)
 cv2.imshow('image',img)
 cv2.waitKey(0)
-
+cv2.destroyAllWindows()
